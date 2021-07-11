@@ -1,0 +1,9 @@
+{
+  "name": "3.01-gpu-procedural-terrain",
+  "version": "0.0.1",
+  "description": "GPU Gems 3 - Chapter 1. Generating Complex Procedural Terrains Using the GPU",
+  "main": "src/index.ts",
+  "repository": "git@github.com:inhibitor1217/gpu-gems.git",
+  "author": "inhibitor <inhibitor@kaist.ac.kr>",
+  "license": "MIT"
+}
