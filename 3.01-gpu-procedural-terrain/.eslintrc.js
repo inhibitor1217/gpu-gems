@@ -5,5 +5,5 @@ module.exports = {
   parserOptions: {
     ...config.parserOptions,
     project: './tsconfig.json',
-  }
+  },
 }
