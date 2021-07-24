@@ -1,5 +1,8 @@
 {
   "extends": "../config/tsconfig.json",
+  "compilerOptions": {
+    "typeRoots": ["node_modules/@webgpu/types"]
+  },
   "include": ["src"],
   "types": ["@types"]
 }
