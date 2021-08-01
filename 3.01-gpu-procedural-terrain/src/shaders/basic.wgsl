@@ -1,11 +1,16 @@
+[[block]] struct Uniforms {
+  modelViewProjectionMatrix: mat4x4<f32>;
+};
+[[binding(0), group(0)]] var<uniform> uniforms: Uniforms;
+
 struct VertexOutput {
   [[builtin(position)]] position: vec4<f32>;
 };
 
 [[stage(vertex)]]
-fn vs_main([[location(0)]] position: vec2<f32>) -> VertexOutput {
+fn vs_main([[location(0)]] position: vec4<f32>) -> VertexOutput {
   var output: VertexOutput;
-  output.position = vec4<f32>(position, 0.0, 1.0);
+  output.position = uniforms.modelViewProjectionMatrix * position;
   return output;
 }
 
