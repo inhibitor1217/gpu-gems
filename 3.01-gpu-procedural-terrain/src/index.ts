@@ -1,7 +1,9 @@
 import { mat4, vec3 } from 'gl-matrix'
 import _ from 'lodash'
+import { PerspectiveCamera } from './camera'
 import init from './init'
 import { Mesh, cubeMesh } from './mesh'
+import { Transform } from './transform'
 import basicWGSL from './shaders/basic.wgsl'
 
 async function main() {
@@ -130,24 +132,33 @@ async function main() {
     },
   }
 
-  const near = 0.1
-  const far = 120
-  const fov = 0.5 * Math.PI
-  const aspectRatio = presentationWidth / presentationHeight
-  const projectionMatrix = mat4.create()
-  mat4.perspective(projectionMatrix, fov, aspectRatio, near, far)
+  const camera = new PerspectiveCamera()
+  camera.setAspectRatio(presentationWidth / presentationHeight)
 
-  function getModelViewProjectionMatrix(): mat4 {
-    const viewMatrix = mat4.create()
-    mat4.translate(viewMatrix, viewMatrix, vec3.fromValues(0, 0, -4))
-    mat4.rotate(viewMatrix, viewMatrix, 1, vec3.fromValues(Math.sin(Date.now() / 1000), Math.cos(Date.now() / 1000), 0))
+  const transform = new Transform()
+  transform.setPosition(vec3.fromValues(0, 0, -4))
 
-    const modelViewProjectionMatrix = mat4.create()
-    mat4.multiply(modelViewProjectionMatrix, projectionMatrix, viewMatrix)
-    return modelViewProjectionMatrix
+  let _time: number
+
+  function update(deltaTime: number, time: number) {
+    transform.rotateEulerX(deltaTime * 0.001)
+    transform.rotateEulerY(deltaTime * 0.001)
+
+    camera.setFOV(0.5 * Math.PI + 0.3 * Math.sin(time * 0.001))
   }
 
   function frame(time: number) {
+    if (!_.isNil(_time)) {
+      update(time - _time, time)
+    }
+    _time = time
+
+    function getModelViewProjectionMatrix(): mat4 {
+      const modelViewProjectionMatrix = mat4.create()
+      mat4.multiply(modelViewProjectionMatrix, camera.getProjection(), transform.getLocalTransform())
+      return modelViewProjectionMatrix
+    }
+
     const modelViewProjectionMatrix = getModelViewProjectionMatrix() as Float32Array
     device.queue.writeBuffer(
       uniformBuffer,
