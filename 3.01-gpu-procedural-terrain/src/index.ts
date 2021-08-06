@@ -63,7 +63,13 @@ async function main() {
               // position
               shaderLocation: 0,
               offset: cubeMesh.offsets.position,
-              format: 'float32x4',
+              format: 'float32x3',
+            },
+            {
+              // normal
+              shaderLocation: 1,
+              offset: cubeMesh.offsets.normal,
+              format: 'float32x3',
             },
           ],
         },
@@ -95,9 +101,15 @@ async function main() {
     usage: GPUTextureUsage.RENDER_ATTACHMENT,
   })
 
-  const uniformBufferSize = 4 * 16 // mat4x4<f32>
-  const uniformBuffer = device.createBuffer({
-    size: uniformBufferSize,
+  const transformParamsBufferSize = 4 * 16 // mat4x4<f32>
+  const transformParamsBuffer = device.createBuffer({
+    size: transformParamsBufferSize,
+    usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+  })
+
+  const cameraParamsBufferSize = 4 * 16 * 2 // two mat4x4<f32>
+  const cameraParamsBuffer = device.createBuffer({
+    size: cameraParamsBufferSize,
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
   })
 
@@ -107,7 +119,13 @@ async function main() {
       {
         binding: 0,
         resource: {
-          buffer: uniformBuffer,
+          buffer: transformParamsBuffer,
+        },
+      },
+      {
+        binding: 1,
+        resource: {
+          buffer: cameraParamsBuffer,
         },
       },
     ],
@@ -142,7 +160,7 @@ async function main() {
 
   function update(deltaTime: number, time: number) {
     transform.rotateEulerX(deltaTime * 0.001)
-    transform.rotateEulerY(deltaTime * 0.001)
+    transform.rotateEulerY(deltaTime * 0.002)
 
     camera.setFOV(0.5 * Math.PI + 0.3 * Math.sin(time * 0.001))
   }
@@ -153,19 +171,33 @@ async function main() {
     }
     _time = time
 
-    function getModelViewProjectionMatrix(): mat4 {
-      const modelViewProjectionMatrix = mat4.create()
-      mat4.multiply(modelViewProjectionMatrix, camera.getProjection(), transform.getLocalTransform())
-      return modelViewProjectionMatrix
-    }
-
-    const modelViewProjectionMatrix = getModelViewProjectionMatrix() as Float32Array
+    const transformMatrix = transform.getLocalTransform() as Float32Array
     device.queue.writeBuffer(
-      uniformBuffer,
+      transformParamsBuffer,
       0,
-      modelViewProjectionMatrix.buffer,
-      modelViewProjectionMatrix.byteOffset,
-      modelViewProjectionMatrix.byteLength
+      transformMatrix.buffer,
+      transformMatrix.byteOffset,
+      transformMatrix.byteLength
+    )
+
+    const cameraProjectionMatrix = camera.getProjection() as Float32Array
+    const inverseCameraProjectionMatrix = mat4.create() as Float32Array
+    mat4.identity(inverseCameraProjectionMatrix)
+
+    device.queue.writeBuffer(
+      cameraParamsBuffer,
+      0,
+      inverseCameraProjectionMatrix.buffer,
+      inverseCameraProjectionMatrix.byteOffset,
+      inverseCameraProjectionMatrix.byteLength
+    )
+
+    device.queue.writeBuffer(
+      cameraParamsBuffer,
+      inverseCameraProjectionMatrix.byteLength,
+      cameraProjectionMatrix.buffer,
+      cameraProjectionMatrix.byteOffset,
+      cameraProjectionMatrix.byteLength
     )
 
     const textureView = context.getCurrentTexture().createView()
