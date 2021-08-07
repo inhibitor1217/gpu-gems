@@ -6,12 +6,14 @@
 // import { Transform } from './transform'
 // import basicWGSL from './shaders/basic.wgsl'
 
-import { Engine } from './core/engine'
+import { Engine, RenderCanvas } from './core/engine'
 import LoggerService from './core/service/LoggerService'
 
 async function main() {
   try {
     const engine = new Engine()
+    const renderCanvas = RenderCanvas.from(document.getElementById('renderCanvas'))
+    await renderCanvas.configure(engine)
   } catch (e) {
     LoggerService.error(e)
   }
