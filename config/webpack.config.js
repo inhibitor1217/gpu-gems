@@ -24,6 +24,10 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.wgsl$/,
+        use: 'raw-loader',
+      },
     ],
   },
   resolve: {
@@ -35,4 +39,5 @@ module.exports = {
     compress: true,
     port: 3000,
   },
+  devtool: 'source-map',
 }
