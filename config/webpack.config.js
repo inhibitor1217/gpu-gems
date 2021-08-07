@@ -1,7 +1,11 @@
 const path = require('path')
 
+function isProduction() {
+  return process.env.NODE_ENV === 'production'
+}
+
 module.exports = {
-  mode: 'production',
+  mode: isProduction() ? 'production' : 'development',
   entry: path.join(process.cwd(), 'src', 'index.ts'),
   output: {
     filename: 'bundle.js',
@@ -10,18 +14,20 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
       },
       {
-        test: /\.wgsl$/,
-        use: 'raw-loader',
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.ts'],
+    extensions: ['.mjs', '.js', '.ts', '.tsx'],
     modules: [path.resolve(process.cwd(), 'src'), path.resolve(process.cwd(), 'node_modules')],
   },
   devServer: {
