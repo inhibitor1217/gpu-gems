@@ -6,7 +6,7 @@
 // import { Transform } from './transform'
 // import basicWGSL from './shaders/basic.wgsl'
 
-import { Engine, RenderCanvas } from './core/engine'
+import { Engine, MeshFactory, RenderCanvas, ShaderRepository } from './core/engine'
 import LoggerService from './core/service/LoggerService'
 
 async function main() {
@@ -14,6 +14,11 @@ async function main() {
     const engine = new Engine()
     const renderCanvas = RenderCanvas.from(document.getElementById('renderCanvas'))
     await renderCanvas.configure(engine)
+
+    ShaderRepository.configure(engine)
+
+    const meshFactory = new MeshFactory(engine)
+    const cubeMesh = meshFactory.buildCube()
   } catch (e) {
     LoggerService.error(e)
   }
