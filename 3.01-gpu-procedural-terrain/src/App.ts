@@ -1,6 +1,9 @@
 import {
   ArcRotateCamera,
+  AxesViewer,
+  Color3,
   ComputeShader,
+  HemisphericLight,
   Mesh,
   Scene,
   StandardMaterial,
@@ -26,7 +29,13 @@ class App {
     const scene = new Scene(engine)
 
     const camera: ArcRotateCamera = new ArcRotateCamera('Camera', Math.PI / 2, Math.PI / 2, 2, Vector3.Zero(), scene)
+    camera.position = Vector3.Up().scale(4)
+
     camera.attachControl(this.canvas, true)
+
+    const light = new HemisphericLight('light', Vector3.Up(), scene)
+
+    const axesViewer = new AxesViewer(scene)
 
     const meshBuffer = new StorageBuffer(engine, 3 * 64 * 4 * 8)
 
@@ -74,7 +83,7 @@ class App {
       })
 
     const terrainMat = new StandardMaterial('terrainMat', scene)
-    terrainMat.wireframe = true
+    terrainMat.diffuseColor = new Color3(1.0, 1.0, 1.0)
 
     terrainMesh.material = terrainMat
 

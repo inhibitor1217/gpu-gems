@@ -17,10 +17,10 @@ fn main([[builtin(local_invocation_id)]] localInvocationID : vec3<u32>,
 
   mesh.vertices[3u * localInvocationIndex].position = vec4<f32>(offset, 1.0);
   mesh.vertices[3u * localInvocationIndex + 1u].position = vec4<f32>(offset + vec3<f32>(1.0, 0.0, 0.0), 1.0);
-  mesh.vertices[3u * localInvocationIndex + 2u].position = vec4<f32>(offset + vec3<f32>(1.0, 1.0, 0.0), 1.0);
+  mesh.vertices[3u * localInvocationIndex + 2u].position = vec4<f32>(offset + vec3<f32>(1.0, 0.0, 1.0), 1.0);
 
-  mesh.vertices[3u * localInvocationIndex].normal = vec4<f32>(0.0, 0.0, 1.0, 0.0);
-  mesh.vertices[3u * localInvocationIndex + 1u].normal = vec4<f32>(0.0, 0.0, 1.0, 0.0);
-  mesh.vertices[3u * localInvocationIndex + 2u].normal = vec4<f32>(0.0, 0.0, 1.0, 0.0);
+  mesh.vertices[3u * localInvocationIndex].normal = vec4<f32>(0.0, 1.0, 0.0, 0.0);
+  mesh.vertices[3u * localInvocationIndex + 1u].normal = vec4<f32>(0.0, 1.0, 0.0, 0.0);
+  mesh.vertices[3u * localInvocationIndex + 2u].normal = vec4<f32>(0.0, 1.0, 0.0, 0.0);
 
 }
