@@ -8,12 +8,16 @@ import {
   Scene,
   StandardMaterial,
   StorageBuffer,
+  UniformBuffer,
   Vector3,
   VertexData,
   WebGPUEngine,
 } from '@babylonjs/core'
 import _ from 'lodash'
 import marchingCubesWGSL from './res/shaders/marchingCubes.wgsl'
+
+const CHUNK_SIZE = 32
+const NUM_VOXELS = CHUNK_SIZE ** 3
 
 class App {
   private readonly canvas: HTMLCanvasElement
@@ -37,7 +41,11 @@ class App {
 
     const axesViewer = new AxesViewer(scene)
 
-    const meshBuffer = new StorageBuffer(engine, 3 * 64 * 4 * 8)
+    const meshBuffer = new StorageBuffer(engine, 3 * NUM_VOXELS * 4 * 8)
+    const paramsBuffer = new UniformBuffer(engine)
+
+    paramsBuffer.updateInt('chunkSize', CHUNK_SIZE)
+    paramsBuffer.update()
 
     const marchingCubesCompute = new ComputeShader(
       'marchingCubes',
@@ -46,25 +54,27 @@ class App {
       {
         bindingsMapping: {
           mesh: { group: 0, binding: 0 },
+          params: { group: 0, binding: 1 },
         },
       }
     )
 
     marchingCubesCompute.setStorageBuffer('mesh', meshBuffer)
+    marchingCubesCompute.setUniformBuffer('params', paramsBuffer)
 
     const terrainMesh = new Mesh('terrain', scene)
 
     marchingCubesCompute
-      .dispatchWhenReady(1, 1, 1)
+      .dispatchWhenReady(CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE)
       .then(() => meshBuffer.read())
       .then((meshBufferData) => {
         const buffer = new Float32Array(meshBufferData.buffer)
         meshBuffer.dispose()
 
-        const positions = new Float32Array(3 * 3 * 64)
-        const normals = new Float32Array(3 * 3 * 64)
+        const positions = new Float32Array(3 * 3 * NUM_VOXELS)
+        const normals = new Float32Array(3 * 3 * NUM_VOXELS)
 
-        for (let i = 0; i < 3 * 64; i += 1) {
+        for (let i = 0; i < 3 * NUM_VOXELS; i += 1) {
           positions[3 * i + 0] = buffer[8 * i + 0]
           positions[3 * i + 1] = buffer[8 * i + 1]
           positions[3 * i + 2] = buffer[8 * i + 2]
@@ -76,7 +86,7 @@ class App {
 
         const vertexData = new VertexData()
         vertexData.positions = positions
-        vertexData.indices = _.range(3 * 64)
+        vertexData.indices = _.range(3 * NUM_VOXELS)
         vertexData.normals = normals
 
         vertexData.applyToMesh(terrainMesh)
@@ -84,6 +94,7 @@ class App {
 
     const terrainMat = new StandardMaterial('terrainMat', scene)
     terrainMat.diffuseColor = new Color3(1.0, 1.0, 1.0)
+    terrainMat.wireframe = true
 
     terrainMesh.material = terrainMat
 
