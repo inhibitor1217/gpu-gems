@@ -81,7 +81,6 @@ class App {
     marchingCubesCompute.setStorageBuffer('triangleCases', triangleCasesBuffer)
 
     const terrainMesh = new Mesh('terrain', scene)
-    const wireFrameMesh = terrainMesh.clone('terrainWireframe')
 
     marchingCubesCompute
       .dispatchWhenReady(CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE)
@@ -109,16 +108,10 @@ class App {
         vertexData.normals = normals
 
         vertexData.applyToMesh(terrainMesh)
-        vertexData.applyToMesh(wireFrameMesh)
       })
 
     const terrainMat = new StandardMaterial('terrainMat', scene)
     terrainMat.diffuseColor = new Color3(1.0, 1.0, 1.0)
-
-    const wireFrameMat = new StandardMaterial('wireframeMat', scene)
-    wireFrameMat.diffuseColor = new Color3(1.0, 0.0, 0.0)
-    wireFrameMat.wireframe = true
-    wireFrameMesh.material = wireFrameMat
 
     engine.runRenderLoop(() => {
       scene.render()
