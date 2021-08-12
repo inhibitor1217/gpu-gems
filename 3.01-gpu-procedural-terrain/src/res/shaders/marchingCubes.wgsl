@@ -46,17 +46,13 @@ fn normal(position : vec3<f32>) -> vec3<f32> {
   return normalize(position - sphereCenter);
 }
 
-let epsilon : f32 = 0.000001;
-
 fn progress(one : f32,
             two : f32) -> f32 {
-  var delta : f32 = two - one;
-
-  if (delta < epsilon) {
+  if (two - one == 0.0) {
     return 0.5;
   }
 
-  return 0.5;
+  return - one / (two - one);
 }
 
 [[stage(compute), workgroup_size(1, 1, 1)]]
