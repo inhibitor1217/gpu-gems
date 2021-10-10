@@ -3,10 +3,12 @@ import {
   Switch,
 } from 'react-router-dom'
 
+import BaseHeader from 'Common/layout/BaseHeader'
+
 function HeaderRoutes() {
   return (
     <Switch>
-      <Route component={() => <div />} />
+      <Route component={BaseHeader} />
     </Switch>
   )
 }
