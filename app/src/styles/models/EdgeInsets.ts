@@ -1,6 +1,3 @@
-import { css } from '@channel.io/bezier-react'
-import type { InjectedInterpolation } from '@channel.io/bezier-react'
-
 export default class EdgeInsets {
   readonly top: number
   readonly right: number
@@ -44,10 +41,4 @@ export default class EdgeInsets {
       left: values.horizontal,
       right: values.horizontal,
     })
-  
-  get interpolation(): InjectedInterpolation {
-    return css`
-      padding: ${this.top}px ${this.right}px ${this.bottom}px ${this.left}px;
-    `
-  }
 }
