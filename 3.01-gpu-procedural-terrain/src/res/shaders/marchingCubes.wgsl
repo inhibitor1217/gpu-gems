@@ -38,12 +38,12 @@ let sphereCenter : vec3<f32> = vec3<f32>(0.0, 0.0, 0.0);
 let sphereRadius : f32 = 12.0;
 
 fn density(position : vec3<f32>) -> f32 {
-  return -position.y;
+  return sphereRadius - distance(position, sphereCenter);
 }
 
 // normal(x) = normalize(- ∇ density(x))
 fn normal(position : vec3<f32>) -> vec3<f32> {
-  return normalize(vec3<f32>(0.0, 1.0, 0.0));
+  return normalize(position - sphereCenter);
 }
 
 fn progress(one : f32,
@@ -102,11 +102,11 @@ fn main([[builtin(workgroup_id)]] workgroupID : vec3<u32>,
       var densityOne : f32 = cubeDensities[vertexOneIndex];
       var densityTwo : f32 = cubeDensities[vertexTwoIndex];
 
-      var _progress  : f32 = progress(densityOne, densityTwo);
+      var edgeProgress : f32 = progress(densityOne, densityTwo);
 
       edgeVertices[i] = offset
-        + vertexOffsets.elements[vertexOneIndex] * (1.0 - _progress)
-        + vertexOffsets.elements[vertexTwoIndex] * _progress;
+        + vertexOffsets.elements[vertexOneIndex] * (1.0 - edgeProgress)
+        + vertexOffsets.elements[vertexTwoIndex] * edgeProgress;
     }
   }
 
@@ -118,26 +118,15 @@ fn main([[builtin(workgroup_id)]] workgroupID : vec3<u32>,
 
   // Fill at most 5 triangles per voxel.
   for (var i : u32 = 0u; i < 5u; i = i + 1u) {
-    let baseIndex : u32 = cubeCase * 16u + i * 3u;
-    let edgeVertexFirstIndex : u32 = triangleCases.elements[baseIndex];
+    for (var j : u32 = 0u; j < 3u; j = j + 1u) {
+      let vertexIndex : u32 = triangleCases.elements[cubeCase * 16u + i * 3u + j];
 
-    if (edgeVertexFirstIndex < 0u) {
-      return;
+      if (vertexIndex < 0u) { return; }
+
+      let position : vec3<f32> = edgeVertices[vertexIndex];
+
+      mesh.vertices[indexOffset + i * 3u + j].position = position;
+      mesh.vertices[indexOffset + i * 3u + j].normal   = normal(position);
     }
-
-    let vertexIndex0 : u32 = triangleCases.elements[baseIndex];
-    let position0 : vec3<f32> = edgeVertices[vertexIndex0];
-    mesh.vertices[indexOffset + i * 3u     ].position = position0;
-    mesh.vertices[indexOffset + i * 3u     ].normal   = normal(position0);
-
-    let vertexIndex1 : u32 = triangleCases.elements[baseIndex + 1u];
-    let position1 : vec3<f32> = edgeVertices[vertexIndex1];
-    mesh.vertices[indexOffset + i * 3u + 1u].position = position1;
-    mesh.vertices[indexOffset + i * 3u + 1u].normal   = normal(position1);
-
-    let vertexIndex2 : u32 = triangleCases.elements[baseIndex + 2u];
-    let position2 : vec3<f32> = edgeVertices[vertexIndex2];
-    mesh.vertices[indexOffset + i * 3u + 2u].position = position2;
-    mesh.vertices[indexOffset + i * 3u + 2u].normal   = normal(position2);
   }
 }

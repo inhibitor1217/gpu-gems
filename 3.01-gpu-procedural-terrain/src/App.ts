@@ -108,6 +108,7 @@ class App {
         vertexData.normals = normals
 
         vertexData.applyToMesh(terrainMesh)
+        // vertexData.applyToMesh(wireframeMesh)
       })
 
     const terrainMat = new StandardMaterial('terrainMat', scene)
