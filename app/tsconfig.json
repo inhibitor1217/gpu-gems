@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx"
+    "baseUrl": "src",
+    "jsx": "react-jsx",
+    "paths": {
+      "Common/*": ["common/*"],
+      "Routes/*": ["routes/*"],
+      "Styles/*": ["styles/*"]
+    }
   },
   "extends": "../config/tsconfig.json",
   "include": ["src"],

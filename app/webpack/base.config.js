@@ -22,6 +22,11 @@ module.exports = {
     ],
   },
   resolve: {
+    alias: {
+      'Common': path.resolve(__dirname, '..', 'src', 'common'),
+      'Routes': path.resolve(__dirname, '..', 'src', 'routes'),
+      'Styles': path.resolve(__dirname, '..', 'src', 'styles'),
+    },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   plugins: [
