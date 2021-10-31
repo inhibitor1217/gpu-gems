@@ -1,3 +1,5 @@
+import type AsyncPhase from './AsyncPhase'
+
 export interface Task<S, E> {
   fulfilled: () => this is FulfilledTask<S, E>
   rejected: () => this is RejectedTask<S, E>
@@ -8,7 +10,7 @@ export interface Task<S, E> {
   error?: E
 }
 
-export interface PendingTask<S, E> extends Task<S, E> {
+interface _PendingTask<S, E> extends Task<S, E> {
   fulfilled: () => false
   rejected: () => false
   completed: () => false
@@ -18,14 +20,18 @@ export interface PendingTask<S, E> extends Task<S, E> {
   error: undefined
 }
 
-export interface CompletedTask<S, E> extends Task<S, E> {
+export type PendingTask<S, E> = _PendingTask<S, E> & { __type: AsyncPhase.Pending }
+
+interface _CompletedTask<S, E> extends Task<S, E> {
   fulfilled: () => this is FulfilledTask<S, E>
   rejected: () => this is RejectedTask<S, E>
   completed: () => true
   pending: () => false
 }
 
-export interface FulfilledTask<S, E> extends CompletedTask<S, E> {
+export type CompletedTask<S, E> = _PendingTask<S, E> & { __type: AsyncPhase.Fulfilled | AsyncPhase.Rejected }
+
+interface _FulfilledTask<S, E> extends _CompletedTask<S, E> {
   fulfilled: () => true
   rejected: () => false
   completed: () => true
@@ -35,7 +41,9 @@ export interface FulfilledTask<S, E> extends CompletedTask<S, E> {
   error: undefined
 }
 
-export interface RejectedTask<S, E> extends CompletedTask<S, E> {
+export type FulfilledTask<S, E> = _FulfilledTask<S, E> & { __type: AsyncPhase.Fulfilled }
+
+interface _RejectedTask<S, E> extends _CompletedTask<S, E> {
   fulfilled: () => false
   rejected: () => true
   completed: () => true
@@ -44,3 +52,5 @@ export interface RejectedTask<S, E> extends CompletedTask<S, E> {
   data: undefined
   error: E
 }
+
+export type RejectedTask<S, E> = _RejectedTask<S, E> & { __type: AsyncPhase.Rejected }

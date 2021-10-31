@@ -4,13 +4,8 @@ import {
   useState,
 } from 'react'
 
+import AsyncPhase from './AsyncPhase'
 import type { Task } from './type'
-
-enum AsyncPhase {
-  Pending,
-  Fulfilled,
-  Rejected,
-}
 
 function useAsyncState<S, E>(promise: Promise<S>): Task<S, E> {
   const [phase, setPhase] = useState(AsyncPhase.Pending)
