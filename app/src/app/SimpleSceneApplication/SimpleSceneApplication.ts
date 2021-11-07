@@ -6,7 +6,7 @@ import {
   Vector3,
 } from '@babylonjs/core'
 
-import type SceneApplication from 'Types/SceneApplication'
+import type SceneApplication from 'Util/SceneApplication'
 
 const SimpleSceneApplication: SceneApplication.SceneApplication = {
   createScene: (engine) => {

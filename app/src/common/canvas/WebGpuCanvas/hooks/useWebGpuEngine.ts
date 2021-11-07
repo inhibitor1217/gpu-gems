@@ -5,7 +5,6 @@ import {
 import { WebGPUEngine } from '@babylonjs/core'
 import _ from 'lodash'
 
-import MarchingCubes from 'App/MarchingCubes'
 import { useAsyncState } from 'Util/AsyncState'
 import type { Task } from 'Util/AsyncState'
 import { O } from 'Util/Fx'
@@ -34,20 +33,6 @@ function useWebGpuEngine(
 
   useEffect(() => function cleanup() {
     if (engineT.fulfilled()) cleanupEngine(engineT.data)
-  }, [engineT])
-
-  useEffect(function runApp() {
-    if (engineT.fulfilled()) {
-      if (O.isNotNone(engineT.data)) {
-        const engine = engineT.data
-        const sceneP = MarchingCubes.createScene(engine)
-        sceneP.then(scene => engine.runRenderLoop(() => scene.render()))
-
-        return function cleanup() {
-          sceneP.then(scene => scene.dispose())
-        }
-      }
-    }
   }, [engineT])
 
   return engineT

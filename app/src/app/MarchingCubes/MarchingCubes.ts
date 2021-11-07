@@ -14,7 +14,7 @@ import {
 } from '@babylonjs/core'
 import _ from 'lodash'
 
-import type SceneApplication from 'Types/SceneApplication'
+import type SceneApplication from 'Util/SceneApplication'
 
 import {
   edgeCases,
