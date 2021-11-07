@@ -38,12 +38,12 @@ let sphereCenter : vec3<f32> = vec3<f32>(0.0, 0.0, 0.0);
 let sphereRadius : f32 = 12.0;
 
 fn density(position : vec3<f32>) -> f32 {
-  return sphereRadius - distance(position, sphereCenter);
+  return sphereRadius - distance(position, sphereCenter) + 0.2 * sin(10.0 * position.x);
 }
 
 // normal(x) = normalize(- ∇ density(x))
 fn normal(position : vec3<f32>) -> vec3<f32> {
-  return normalize(position - sphereCenter);
+  return normalize(position - sphereCenter + 2.0 * vec3<f32>(cos(10.0 * position.x), 0.0, 0.0));
 }
 
 fn progress(one : f32,

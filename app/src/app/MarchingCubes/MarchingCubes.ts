@@ -34,8 +34,7 @@ const MarchingCubes: SceneApplication.SceneApplication = {
 
     const canvas = engine.getRenderingCanvas()
 
-    const camera = new ArcRotateCamera('Camera', Math.PI / 2, Math.PI / 2, 2, Vector3.Zero(), scene)
-    camera.position = Vector3.Up().scale(4)
+    const camera = new ArcRotateCamera('Camera', Math.PI / 4, Math.PI / 4, 32, Vector3.Zero(), scene)
 
     camera.attachControl(canvas, true)
 
@@ -81,6 +80,7 @@ const MarchingCubes: SceneApplication.SceneApplication = {
     marchingCubesCompute.setStorageBuffer('triangleCases', triangleCasesBuffer)
 
     const terrainMesh = new Mesh('terrain', scene)
+    const wireframeMesh = terrainMesh.clone('terrainWireframe')
 
     marchingCubesCompute
       .dispatchWhenReady(CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE)
@@ -108,11 +108,16 @@ const MarchingCubes: SceneApplication.SceneApplication = {
         vertexData.normals = normals
 
         vertexData.applyToMesh(terrainMesh)
-        // vertexData.applyToMesh(wireframeMesh)
+        vertexData.applyToMesh(wireframeMesh)
       })
 
     const terrainMat = new StandardMaterial('terrainMat', scene)
     terrainMat.diffuseColor = new Color3(1.0, 1.0, 1.0)
+
+    const wireframeMat = new StandardMaterial('wireframeMat', scene)
+    wireframeMat.diffuseColor = new Color3(1.0, 0.0, 0.0)
+    wireframeMat.wireframe = true
+    wireframeMesh.material = wireframeMat
 
     return Promise.resolve(scene)
   },
