@@ -1,15 +1,15 @@
 import {
   Route,
-  Switch,
+  Routes,
 } from 'react-router-dom'
 
 import BaseHeader from 'Common/layout/BaseHeader'
 
 function HeaderRoutes() {
   return (
-    <Switch>
-      <Route component={BaseHeader} />
-    </Switch>
+    <Routes>
+      <Route path="*" element={<BaseHeader />} />
+    </Routes>
   )
 }
 

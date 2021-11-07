@@ -4,7 +4,7 @@ import {
 } from 'react'
 import {
   Route,
-  Switch,
+  Routes,
 } from 'react-router-dom'
 
 import WebGpuCanvas from 'Common/canvas/WebGpuCanvas'
@@ -23,11 +23,11 @@ function ContentRoutes() {
   return (
     <WebGpuCanvas>
       <Suspense fallback={null}>
-        <Switch>
-          <Route path="/simple-scene" component={SimpleSceneApplication} />
-          <Route path="/marching-cubes" component={MarchingCubes} />
-          <Route component={SimpleSceneApplication} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<SimpleSceneApplication />} />
+          <Route path="simple-scene" element={<SimpleSceneApplication />} />
+          <Route path="marching-cubes" element={<MarchingCubes />} />
+        </Routes>
       </Suspense>
     </WebGpuCanvas>
   )
