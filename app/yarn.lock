@@ -952,10 +952,10 @@
   dependencies:
     tslib "^2.3.1"
 
-"@channel.io/bezier-react@1.0.0-next-v1.43":
-  version "1.0.0-next-v1.43"
-  resolved "https://registry.yarnpkg.com/@channel.io/bezier-react/-/bezier-react-1.0.0-next-v1.43.tgz#db4fac026484d544abb7e038805656b9df7c834e"
-  integrity sha512-fqrWsnRLB8EG3+r0Qkqdy0X8KpRRh4UXxGahuIrsRtkASB57rLHqHMKlGcL+VgZs2d/1Fs9dbwxj6pcFXAuRqQ==
+"@channel.io/bezier-react@1.0.0-next-v1.53":
+  version "1.0.0-next-v1.53"
+  resolved "https://registry.yarnpkg.com/@channel.io/bezier-react/-/bezier-react-1.0.0-next-v1.53.tgz#6ce6eb860542b2219dea0c50f2668b218b1b9d73"
+  integrity sha512-WV4z8FTLF7O/ClBzDQUpuE9AjfgIFkjiRxPNcN3H7bKkfRygw14EwhPGy/i0FbAPF0LM0AsODGBJLkgxCqkY9w==
   dependencies:
     "@babel/runtime" "^7.12.13"
     lodash-es "^4.17.15"
