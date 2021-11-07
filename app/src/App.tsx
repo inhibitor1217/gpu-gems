@@ -3,12 +3,14 @@ import {
   FoundationProvider,
   DarkFoundation,
   Main,
+  Navigations,
   LayoutProvider,
 } from '@channel.io/bezier-react'
 
 import { Empty } from 'Common/base/Empty'
 import { ContentRoutes } from 'Routes/content'
 import { HeaderRoutes } from 'Routes/header'
+import { NavigationRoutes } from 'Routes/navigation'
 
 const ProviderValues = {
   foundation: DarkFoundation,
@@ -20,6 +22,10 @@ const App = () => {
     <FoundationProvider foundation={ProviderValues.foundation}>
       <LayoutProvider initialState={ProviderValues.layout}>
         <Router>
+          <Navigations>
+            <NavigationRoutes />
+          </Navigations>
+
           <Main
             ContentHeaderComponent={HeaderRoutes}
             SidePanelComponent={Empty}
