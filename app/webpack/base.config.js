@@ -29,6 +29,7 @@ module.exports = {
     alias: {
       'App': path.resolve(__dirname, '..', 'src', 'app'),
       'Common': path.resolve(__dirname, '..', 'src', 'common'),
+      'Contexts': path.resolve(__dirname, '..', 'src', 'contexts'),
       'Routes': path.resolve(__dirname, '..', 'src', 'routes'),
       'Styles': path.resolve(__dirname, '..', 'src', 'styles'),
       'Types': path.resolve(__dirname, '..', 'src', 'types'),

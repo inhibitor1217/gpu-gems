@@ -5,6 +5,7 @@
     "paths": {
       "App/*": ["app/*"],
       "Common/*": ["common/*"],
+      "Contexts/*": ["contexts/*"],
       "Routes/*": ["routes/*"],
       "Styles/*": ["styles/*"],
       "Types/*": ["types/*"],
