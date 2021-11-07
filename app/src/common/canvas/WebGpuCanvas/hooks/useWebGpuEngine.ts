@@ -38,8 +38,8 @@ function useWebGpuEngine(
 
   useEffect(function runApp() {
     if (engineT.fulfilled()) {
-      const engine = engineT.data
-      if (engine) {
+      if (O.isNotNone(engineT.data)) {
+        const engine = engineT.data
         const sceneP = SimpleSceneApplication.createScene(engine)
         sceneP.then(scene => engine.runRenderLoop(() => scene.render()))
 
