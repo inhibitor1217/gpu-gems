@@ -9,8 +9,9 @@ import {
 import type SceneApplication from 'Types/SceneApplication'
 
 const SimpleSceneApplication: SceneApplication.SceneApplication = {
-  createScene: (canvas, engine) => {
+  createScene: (engine) => {
     const scene = new Scene(engine)
+    const canvas = engine.getRenderingCanvas()
     
     const camera = new FreeCamera("camera1", new Vector3(0, 5, -10), scene)
     camera.setTarget(Vector3.Zero())

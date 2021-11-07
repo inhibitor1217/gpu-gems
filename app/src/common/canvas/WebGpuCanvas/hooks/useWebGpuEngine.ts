@@ -5,6 +5,7 @@ import {
 import { WebGPUEngine } from '@babylonjs/core'
 import _ from 'lodash'
 
+import SimpleSceneApplication from 'App/SimpleSceneApplication'
 import { useAsyncState } from 'Util/AsyncState'
 import type { Task } from 'Util/AsyncState'
 import { O } from 'Util/Fx'
@@ -33,6 +34,20 @@ function useWebGpuEngine(
 
   useEffect(() => function cleanup() {
     if (engineT.fulfilled()) cleanupEngine(engineT.data)
+  }, [engineT])
+
+  useEffect(function runApp() {
+    if (engineT.fulfilled()) {
+      const engine = engineT.data
+      if (engine) {
+        const sceneP = SimpleSceneApplication.createScene(engine)
+        sceneP.then(scene => engine.runRenderLoop(() => scene.render()))
+
+        return function cleanup() {
+          sceneP.then(scene => scene.dispose())
+        }
+      }
+    }
   }, [engineT])
 
   return engineT

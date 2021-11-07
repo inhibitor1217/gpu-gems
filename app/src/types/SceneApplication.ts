@@ -5,10 +5,7 @@ import type {
 
 namespace SceneApplication {
   export interface SceneApplication {
-    createScene(
-      canvas: HTMLCanvasElement,
-      engine: Engine,
-    ): Promise<Scene>
+    createScene(engine: Engine): Promise<Scene>
   }
 }
 
