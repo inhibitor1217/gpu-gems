@@ -5,4 +5,7 @@ import { flex } from 'Styles/interpolations'
 export const Canvas = styled.canvas`
   ${flex.expanded()}
   ${flex.crossAlignments.stretch()}
+
+  border: none;
+  outline: none;
 `
