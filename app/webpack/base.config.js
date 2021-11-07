@@ -26,6 +26,7 @@ module.exports = {
       'Common': path.resolve(__dirname, '..', 'src', 'common'),
       'Routes': path.resolve(__dirname, '..', 'src', 'routes'),
       'Styles': path.resolve(__dirname, '..', 'src', 'styles'),
+      'Types': path.resolve(__dirname, '..', 'src', 'types'),
       'Util': path.resolve(__dirname, '..', 'src', 'util'),
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
