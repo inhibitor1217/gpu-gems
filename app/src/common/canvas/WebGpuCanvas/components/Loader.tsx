@@ -1,9 +1,11 @@
 import { memo } from 'react'
-import { Spinner, SpinnerSize } from '@channel.io/bezier-react'
+import { SpinnerSize } from '@channel.io/bezier-react'
+
+import * as Styled from './Loader.styled'
 
 function Loader() {
   return (
-    <Spinner
+    <Styled.Spinner
       size={SpinnerSize.XL}
       color="txt-black-dark"
     />

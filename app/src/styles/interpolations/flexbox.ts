@@ -17,3 +17,21 @@ export const container =
     justify-content: ${alignment?.main ?? 'start'};
     align-items: ${alignment?.cross ?? 'center'};
    `
+
+export const expanded =
+  () =>
+  css`
+   flex: 1 1 0;
+  `
+
+export const centered =
+  () =>
+  css`
+   margin: auto;
+  `
+
+export const crossAlignments = {
+  stretch: () => css`
+    align-self: stretch;
+  `,
+}
