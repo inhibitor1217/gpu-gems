@@ -5,6 +5,8 @@ import {
 import type { ReactNode } from 'react'
 import _ from 'lodash'
 
+import EngineContext from 'Contexts/EngineContext'
+
 import useWebGpuEngine from '../hooks/useWebGpuEngine'
 import * as Styled from './WebGpuCanvasImpl.styled'
 
@@ -19,11 +21,11 @@ function WebGpuCanvasImpl({
   const engineT = useWebGpuEngine(canvas)
 
   return (
-    <>
+    <EngineContext.Provider value={engineT}>
       <Styled.Canvas ref={setCanvas} />
 
       { children }
-    </>
+    </EngineContext.Provider>
   )
 }
 
