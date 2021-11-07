@@ -41,6 +41,11 @@ const GlobalStyle = createGlobalStyle`
     ${typography}
   }
 
+  a,
+  u {
+    text-decoration: none;
+  }
+
   h1,
   h2,
   h3,

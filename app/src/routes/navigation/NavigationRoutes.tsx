@@ -1,4 +1,18 @@
-import { NavigationContent } from '@channel.io/bezier-react'
+import {
+  Link,
+  useMatch,
+} from 'react-router-dom'
+import {
+  NavigationContent,
+  OutlineItem,
+  SectionLabel,
+  styled,
+  Text,
+  Typography,
+} from '@channel.io/bezier-react'
+
+import { O } from 'Util/Fx'
+import * as Styled from './NavigationRoutes.styled'
 
 const LAYOUT_OPTION = {
   initialWidth: 200,
@@ -9,11 +23,39 @@ const LAYOUT_OPTION = {
 }
 
 function NavigationRoutes() {
+  /* NOTE: consider scalable way of handling route paths */
+  const isOnSimpleSceneApp = O.isNotNone(useMatch('/') || useMatch('simple-scene'))
+  const isOnMarchingCubesApp = O.isNotNone(useMatch('marching-cubes'))
+
   return (
-    <NavigationContent
+    <Styled.NavigationContent
       navigationKey="default"
       layoutOption={LAYOUT_OPTION}
-    />
+    >
+      <SectionLabel content="Applications" />
+
+      <Link to="simple-scene">
+        <OutlineItem
+          active={isOnSimpleSceneApp}
+          content={(
+            <Styled.RouteItemText>
+              Simple scene
+            </Styled.RouteItemText>
+          )}
+        />
+      </Link>
+
+      <Link to="marching-cubes">
+        <OutlineItem
+          active={isOnMarchingCubesApp}
+          content={(
+            <Styled.RouteItemText>
+              Marching cubes
+            </Styled.RouteItemText>
+          )}
+        />
+      </Link>
+    </Styled.NavigationContent>
   )
 }
 
