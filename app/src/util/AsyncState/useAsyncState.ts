@@ -22,7 +22,7 @@ function useAsyncState<S, E>(promise: Promise<S>): Task<S, E> {
         setPhase(AsyncPhase.Rejected)
         setError(error)
       })
-  }, [])
+  }, [promise])
 
   const fulfilled = useCallback(() => phase === AsyncPhase.Fulfilled, [phase])
   const rejected = useCallback(() => phase === AsyncPhase.Rejected, [phase])

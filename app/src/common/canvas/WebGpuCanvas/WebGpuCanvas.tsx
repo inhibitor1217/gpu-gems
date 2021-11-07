@@ -8,12 +8,12 @@ import useIsWebGpuSupported from './hooks/useIsWebGpuSupported'
 import * as Styled from './WebGpuCanvas.styled'
 
 function WebGpuCanvas() {
-  const isWebGpuSupported = useIsWebGpuSupported()
+  const isWebGpuSupportedT = useIsWebGpuSupported()
 
   const Content = function Content(): ReactNode {
-    if (isWebGpuSupported.pending()) return <Loader />
+    if (isWebGpuSupportedT.pending()) return <Loader />
     
-    if (isWebGpuSupported.rejected()) {
+    if (isWebGpuSupportedT.rejected()) {
       return (
         <Styled.Padding>
           <UnsupportedBanner />
@@ -21,8 +21,8 @@ function WebGpuCanvas() {
       )
     }
     
-    if (isWebGpuSupported.fulfilled()) {
-      if (isWebGpuSupported.data) return <WebGpuCanvasImpl />
+    if (isWebGpuSupportedT.fulfilled()) {
+      if (isWebGpuSupportedT.data) return <WebGpuCanvasImpl />
       else return (
         <Styled.Padding>
           <UnsupportedBanner />

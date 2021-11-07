@@ -1,6 +1,6 @@
 import type AsyncPhase from './AsyncPhase'
 
-export interface Task<S, E> {
+export interface Task<S, E = unknown> {
   fulfilled: () => this is FulfilledTask<S, E>
   rejected: () => this is RejectedTask<S, E>
   completed: () => this is CompletedTask<S, E>
