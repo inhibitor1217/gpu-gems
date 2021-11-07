@@ -7,9 +7,11 @@ import WebGpuCanvas from 'Common/canvas/WebGpuCanvas'
 
 function ContentRoutes() {
   return (
-    <Switch>
-      <Route component={WebGpuCanvas} />
-    </Switch>
+    <WebGpuCanvas>
+      <Switch>
+        <Route component={() => null} />
+      </Switch>
+    </WebGpuCanvas>
   )
 }
 

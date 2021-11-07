@@ -7,7 +7,13 @@ import WebGpuCanvasImpl from './components/WebGpuCanvasImpl'
 import useIsWebGpuSupported from './hooks/useIsWebGpuSupported'
 import * as Styled from './WebGpuCanvas.styled'
 
-function WebGpuCanvas() {
+interface WebGpuCanvasProps {
+  children: ReactNode
+}
+
+function WebGpuCanvas({
+  children,
+}: WebGpuCanvasProps) {
   const isWebGpuSupportedT = useIsWebGpuSupported()
 
   const Content = function Content(): ReactNode {
@@ -22,7 +28,12 @@ function WebGpuCanvas() {
     }
     
     if (isWebGpuSupportedT.fulfilled()) {
-      if (isWebGpuSupportedT.data) return <WebGpuCanvasImpl />
+      if (isWebGpuSupportedT.data) return (
+        <WebGpuCanvasImpl>
+          { children }
+        </WebGpuCanvasImpl>
+      )
+      
       else return (
         <Styled.Padding>
           <UnsupportedBanner />
