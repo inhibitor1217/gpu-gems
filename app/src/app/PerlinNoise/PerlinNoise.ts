@@ -1,19 +1,18 @@
 import {
-  ArcRotateCamera,
+  Layer,
   Scene,
-  Vector3,
 } from '@babylonjs/core'
 
 import SceneApplication from 'Util/SceneApplication'
+import { mosaic } from 'Util/Texture'
 
 const PerlinNoise: SceneApplication.SceneApplication = {
   createScene: (engine) => {
     const scene = new Scene(engine)
+    scene.createDefaultCameraOrLight(false, true, false)
 
-    const canvas = engine.getRenderingCanvas()
-
-    const camera = new ArcRotateCamera('Camera', Math.PI / 4, Math.PI / 4, 32, Vector3.Zero(), scene)
-    camera.attachControl(canvas, true)
+    const layer = new Layer('noise', null, scene, true)
+    layer.texture = mosaic(4, scene)
 
     return Promise.resolve(scene)
   },
