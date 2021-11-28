@@ -26,6 +26,7 @@ function NavigationRoutes() {
   /* NOTE: consider scalable way of handling route paths */
   const isOnSimpleSceneApp = O.isNotNone(useMatch('/') || useMatch('simple-scene'))
   const isOnMarchingCubesApp = O.isNotNone(useMatch('marching-cubes'))
+  const isOnPerlinNoiseApp = O.isNotNone(useMatch('perlin-noise'))
 
   return (
     <Styled.NavigationContent
@@ -51,6 +52,17 @@ function NavigationRoutes() {
           content={(
             <Styled.RouteItemText>
               Marching cubes
+            </Styled.RouteItemText>
+          )}
+        />
+      </Link>
+
+      <Link to="perlin-noise">
+        <OutlineItem
+          active={isOnPerlinNoiseApp}
+          content={(
+            <Styled.RouteItemText>
+              Perlin Noise
             </Styled.RouteItemText>
           )}
         />

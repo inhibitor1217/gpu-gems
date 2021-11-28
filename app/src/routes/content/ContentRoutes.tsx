@@ -19,6 +19,10 @@ const MarchingCubes = lazy(() =>
   import('App/MarchingCubes')
     .then(SR.evolve({ default: WebGpuSceneApplication })))
 
+const PerlinNoise = lazy(() =>
+  import('App/PerlinNoise')
+    .then(SR.evolve({ default: WebGpuSceneApplication })))
+
 function ContentRoutes() {
   return (
     <WebGpuCanvas>
@@ -27,6 +31,7 @@ function ContentRoutes() {
           <Route path="/" element={<SimpleSceneApplication />} />
           <Route path="simple-scene" element={<SimpleSceneApplication />} />
           <Route path="marching-cubes" element={<MarchingCubes />} />
+          <Route path="perlin-noise" element={<PerlinNoise />} />
         </Routes>
       </Suspense>
     </WebGpuCanvas>
