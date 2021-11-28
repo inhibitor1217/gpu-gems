@@ -17,4 +17,5 @@ module.exports = _.merge(baseConfig, {
       directory: path.resolve(__dirname, '..', 'public'),
     },
   },
+  devtool: 'eval',
 })

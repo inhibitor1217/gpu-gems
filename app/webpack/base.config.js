@@ -23,6 +23,11 @@ module.exports = {
         test: /\.wgsl$/,
         use: 'raw-loader',
       },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      }
     ],
   },
   resolve: {
