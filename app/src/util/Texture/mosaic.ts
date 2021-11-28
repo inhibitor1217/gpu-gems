@@ -30,14 +30,16 @@ const COLOR_TABLE =
     .map(semanticName => Color.palette[semanticName])
     .map(Color.parseToRGBAInteger)
 
-const colorTableCoord = (i: number): [number, number] => [Math.floor(i / COLOR_TABLE_SIZE), i % COLOR_TABLE_SIZE]
+const colorTableCoord = (resolution: number) => (i: number): [number, number] =>
+  [Math.floor(i / resolution) % COLOR_TABLE_SIZE, i % COLOR_TABLE_SIZE]
+
 const coordToIndex = ([x, y]: [number, number]): number => x * COLOR_TABLE_SIZE + y
 
 const mosaicBuffer = (resolution: number) =>
   new Uint8Array(
     A.flatten(
       [...F.range(resolution ** 2)]
-        .map(colorTableCoord)
+        .map(colorTableCoord(resolution))
         .map(coordToIndex)
         .map(i => COLOR_TABLE[i]))
   )

@@ -12,7 +12,7 @@ const PerlinNoise: SceneApplication.SceneApplication = {
     scene.createDefaultCameraOrLight(false, true, false)
 
     const layer = new Layer('noise', null, scene, true)
-    layer.texture = mosaic(4, scene)
+    layer.texture = mosaic(16, scene)
 
     return Promise.resolve(scene)
   },
