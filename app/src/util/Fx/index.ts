@@ -1,3 +1,5 @@
+export * as A from './Array'
 export * as B from './Boolean'
+export * as F from './Function'
 export * as O from './Option'
 export * as SR from './Struct'
