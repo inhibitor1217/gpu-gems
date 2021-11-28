@@ -1,4 +1,7 @@
-import { LightFoundation, SemanticNames } from '@channel.io/bezier-react'
+import {
+  LightFoundation,
+  SemanticNames,
+} from '@channel.io/bezier-react'
 
 import type { PaletteColor } from './type'
 

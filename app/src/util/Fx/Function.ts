@@ -17,6 +17,11 @@ type Pipe = {
 
 export const pipe: Pipe = (...fs: any[]) => <A>(a: A) => go(a, ...fs)
 
+export const range = function* range(n: number) {
+    let i = 0
+    while (i < n) yield i++
+  }
+
 export const debug = <A>(a: A) => {
   console.log(a)
   return a
