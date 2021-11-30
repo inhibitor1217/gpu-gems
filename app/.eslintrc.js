@@ -1,9 +1,15 @@
+const _ = require('lodash')
 const config = require('../config/.eslintrc')
 
-module.exports = {
-  ...config,
-  parserOptions: {
-    ...config.parserOptions,
-    project: './tsconfig.json',
-  },
-}
+module.exports = _.merge(
+  config,
+  {
+    extends: [
+      'airbnb',
+      'airbnb-typescript',
+    ],
+    parserOptions: {
+      project: './tsconfig.json',
+    }
+  }
+)
