@@ -1,0 +1,7 @@
+build/
+node_modules/
+public/
+webpack/
+.babelrc.js
+.eslintrc.js
+.prettierrc.js

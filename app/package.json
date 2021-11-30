@@ -10,7 +10,8 @@
   "scripts": {
     "start:dev": "NODE_ENV=development webpack serve --config webpack/dev.config.js",
     "build": "NODE_ENV=production webpack build --config webpack/build.config.js",
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix"
   },
   "dependencies": {
     "@babylonjs/core": "5.0.0-alpha.49",
