@@ -10,7 +10,7 @@ export interface Task<S, E = unknown> {
   error?: E
 }
 
-interface _PendingTask<S, E> extends Task<S, E> {
+interface UnbrandedPendingTask<S, E> extends Task<S, E> {
   fulfilled: () => false
   rejected: () => false
   completed: () => false
@@ -20,18 +20,20 @@ interface _PendingTask<S, E> extends Task<S, E> {
   error: undefined
 }
 
-export type PendingTask<S, E> = _PendingTask<S, E> & { __type: AsyncPhase.Pending }
+export type PendingTask<S, E> = UnbrandedPendingTask<S, E> & { __type: AsyncPhase.Pending }
 
-interface _CompletedTask<S, E> extends Task<S, E> {
+interface UnbrandedCompletedTask<S, E> extends Task<S, E> {
   fulfilled: () => this is FulfilledTask<S, E>
   rejected: () => this is RejectedTask<S, E>
   completed: () => true
   pending: () => false
 }
 
-export type CompletedTask<S, E> = _PendingTask<S, E> & { __type: AsyncPhase.Fulfilled | AsyncPhase.Rejected }
+export type CompletedTask<S, E> = UnbrandedCompletedTask<S, E> & {
+  __type: AsyncPhase.Fulfilled | AsyncPhase.Rejected
+}
 
-interface _FulfilledTask<S, E> extends _CompletedTask<S, E> {
+interface UnbrandedFulfilledTask<S, E> extends UnbrandedCompletedTask<S, E> {
   fulfilled: () => true
   rejected: () => false
   completed: () => true
@@ -41,9 +43,9 @@ interface _FulfilledTask<S, E> extends _CompletedTask<S, E> {
   error: undefined
 }
 
-export type FulfilledTask<S, E> = _FulfilledTask<S, E> & { __type: AsyncPhase.Fulfilled }
+export type FulfilledTask<S, E> = UnbrandedFulfilledTask<S, E> & { __type: AsyncPhase.Fulfilled }
 
-interface _RejectedTask<S, E> extends _CompletedTask<S, E> {
+interface UnbrandedRejectedTask<S, E> extends UnbrandedCompletedTask<S, E> {
   fulfilled: () => false
   rejected: () => true
   completed: () => true
@@ -53,4 +55,4 @@ interface _RejectedTask<S, E> extends _CompletedTask<S, E> {
   error: E
 }
 
-export type RejectedTask<S, E> = _RejectedTask<S, E> & { __type: AsyncPhase.Rejected }
+export type RejectedTask<S, E> = UnbrandedRejectedTask<S, E> & { __type: AsyncPhase.Rejected }

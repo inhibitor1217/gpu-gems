@@ -1,7 +1,10 @@
 export default class EdgeInsets {
   readonly top: number
+
   readonly right: number
+
   readonly bottom: number
+
   readonly left: number
 
   private constructor(values: {
@@ -27,13 +30,16 @@ export default class EdgeInsets {
     })
 
   static fromLTRB = (left: number, top: number, right: number, bottom: number): EdgeInsets =>
-    new EdgeInsets({ left, top, right, bottom })
-  
-  static only =
-    (direction: 'left' | 'top' | 'right' | 'bottom',
-     offset: number): EdgeInsets =>
+    new EdgeInsets({
+      left, top, right, bottom,
+    })
+
+  static only = (
+    direction: 'left' | 'top' | 'right' | 'bottom',
+    offset: number,
+  ): EdgeInsets =>
     new EdgeInsets({ [direction]: offset })
-  
+
   static symmetric = (values: { horizontal?: number, vertical?: number }): EdgeInsets =>
     new EdgeInsets({
       top: values.vertical,

@@ -2,6 +2,7 @@ import {
   useContext,
   useEffect,
 } from 'react'
+import _ from 'lodash'
 
 import EngineContext from 'Contexts/EngineContext'
 import { O } from 'Util/Fx'
@@ -12,16 +13,16 @@ const WebGpuSceneApplication = (app: SceneApplication.SceneApplication) =>
     const engineT = useContext(EngineContext)
 
     useEffect(function runApplication() {
-      if (!engineT.fulfilled()) { return }
-      if (O.isNone(engineT.data)) { return }
+      if (!engineT.fulfilled()) { return _.noop }
+      if (O.isNone(engineT.data)) { return _.noop }
 
       const engine = engineT.data
       const sceneP = app.createScene(engine)
 
-      sceneP.then(scene => engine.runRenderLoop(() => scene.render()))
+      sceneP.then((scene) => engine.runRenderLoop(() => scene.render()))
 
       return function cleanup() {
-        sceneP.then(scene => scene.dispose())
+        sceneP.then((scene) => scene.dispose())
       }
     }, [engineT])
 

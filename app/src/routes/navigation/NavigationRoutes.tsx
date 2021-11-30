@@ -3,12 +3,8 @@ import {
   useMatch,
 } from 'react-router-dom'
 import {
-  NavigationContent,
   OutlineItem,
   SectionLabel,
-  styled,
-  Text,
-  Typography,
 } from '@channel.io/bezier-react'
 
 import { O } from 'Util/Fx'

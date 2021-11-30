@@ -16,9 +16,9 @@ function WebGpuCanvas({
 }: WebGpuCanvasProps) {
   const isWebGpuSupportedT = useIsWebGpuSupported()
 
-  const Content = function Content(): ReactNode {
+  const Content = (function Content(): ReactNode {
     if (isWebGpuSupportedT.pending()) return <Loader />
-    
+
     if (isWebGpuSupportedT.rejected()) {
       return (
         <Styled.Padding>
@@ -26,22 +26,24 @@ function WebGpuCanvas({
         </Styled.Padding>
       )
     }
-    
+
     if (isWebGpuSupportedT.fulfilled()) {
-      if (isWebGpuSupportedT.data) return (
-        <WebGpuCanvasImpl>
-          { children }
-        </WebGpuCanvasImpl>
-      )
-      
-      else return (
+      if (isWebGpuSupportedT.data) {
+        return (
+          <WebGpuCanvasImpl>
+            { children }
+          </WebGpuCanvasImpl>
+        )
+      }
+
+      return (
         <Styled.Padding>
           <UnsupportedBanner />
         </Styled.Padding>
       )
     }
     return null
-  } ()
+  }())
 
   return (
     <Styled.Wrapper>

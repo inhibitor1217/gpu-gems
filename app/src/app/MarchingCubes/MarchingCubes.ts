@@ -38,9 +38,10 @@ const MarchingCubes: SceneApplication.SceneApplication = {
 
     camera.attachControl(canvas, true)
 
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     const light = new HemisphericLight('light', Vector3.Up(), scene)
-
     const axesViewer = new AxesViewer(scene)
+    /* eslint-enable @typescript-eslint/no-unused-vars */
 
     const meshBuffer = new StorageBuffer(engine, 15 * NUM_VOXELS * 4 * 8)
     const paramsBuffer = new UniformBuffer(engine)
@@ -69,7 +70,7 @@ const MarchingCubes: SceneApplication.SceneApplication = {
           edgeVertexIndices: { group: 0, binding: 4 },
           triangleCases: { group: 0, binding: 5 },
         },
-      }
+      },
     )
 
     marchingCubesCompute.setStorageBuffer('mesh', meshBuffer)

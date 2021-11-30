@@ -3,7 +3,7 @@ import { normalize } from 'styled-normalize'
 
 const typography = `
   font-family: 'NanumSquare', Roboto, Arial, sans-serif;
-`;
+`
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}

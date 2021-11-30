@@ -14,13 +14,13 @@ function useAsyncState<S, E>(promise: Promise<S>): Task<S, E> {
 
   useEffect(function sync() {
     promise
-      .then(data => {
+      .then((_data) => {
         setPhase(AsyncPhase.Fulfilled)
-        setData(data)
+        setData(_data)
       })
-      .catch(error => {
+      .catch((_error) => {
         setPhase(AsyncPhase.Rejected)
-        setError(error)
+        setError(_error)
       })
   }, [promise])
 

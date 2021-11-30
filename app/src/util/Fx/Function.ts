@@ -18,11 +18,15 @@ type Pipe = {
 export const pipe: Pipe = (...fs: any[]) => <A>(a: A) => go(a, ...fs)
 
 export const range = function* range(n: number) {
-    let i = 0
-    while (i < n) yield i++
+  let i = 0
+  while (i < n) {
+    yield i
+    i += 1
   }
+}
 
 export const debug = <A>(a: A) => {
+  // eslint-disable-next-line no-console
   console.log(a)
   return a
 }

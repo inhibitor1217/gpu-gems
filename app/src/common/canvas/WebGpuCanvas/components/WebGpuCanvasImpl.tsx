@@ -3,7 +3,6 @@ import {
   useState,
 } from 'react'
 import type { ReactNode } from 'react'
-import _ from 'lodash'
 
 import EngineContext from 'Contexts/EngineContext'
 

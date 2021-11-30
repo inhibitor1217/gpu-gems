@@ -3,27 +3,26 @@ import {
   useMemo,
 } from 'react'
 import { WebGPUEngine } from '@babylonjs/core'
-import _ from 'lodash'
 
 import { useAsyncState } from 'Util/AsyncState'
 import type { Task } from 'Util/AsyncState'
 import { O } from 'Util/Fx'
 
-const initEngine =
-  O.mapT(
-    async (canvas: HTMLCanvasElement): Promise<WebGPUEngine> => {
-      const engine = new WebGPUEngine(canvas)
-      await engine.initAsync()
-      return engine
-    })
+const initEngine = O.mapT(
+  async (canvas: HTMLCanvasElement): Promise<WebGPUEngine> => {
+    const engine = new WebGPUEngine(canvas)
+    await engine.initAsync()
+    return engine
+  },
+)
 
-const cleanupEngine =
-  O.map(
-    (engine: WebGPUEngine) => {
-      try {
-        engine.dispose()
-      } catch (e) { /* ignore exception. */ }
-    })
+const cleanupEngine = O.map(
+  (engine: WebGPUEngine) => {
+    try {
+      engine.dispose()
+    } catch (e) { /* ignore exception. */ }
+  },
+)
 
 function useWebGpuEngine(
   canvas: HTMLCanvasElement | null,
