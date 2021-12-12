@@ -8,5 +8,5 @@ varying vPosition : vec3<f32>;
 [[stage(vertex)]]
 fn main(input : VertexInputs) -> FragmentInputs {
   gl_Position = scene.viewProjection * mesh.world * vec4<f32>(position, 1.0);
-  vPosition = position;
+  vPosition = 16.0 * position;
 }
