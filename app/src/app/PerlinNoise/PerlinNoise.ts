@@ -4,10 +4,13 @@ import {
   ShaderLanguage,
   ShaderMaterial,
   ShaderStore,
+  StorageBuffer,
 } from '@babylonjs/core'
 
 import SceneApplication from 'Util/SceneApplication'
 
+import gradients from './res/buffers/gradients'
+import permutation from './res/buffers/permutation'
 import noiseVertexWGSL from './res/shaders/noise.vertex.wgsl'
 import noiseFragmentWGSL from './res/shaders/noise.fragment.wgsl'
 
@@ -25,6 +28,12 @@ const PerlinNoise: SceneApplication.SceneApplication = {
     ShaderStore.ShadersStoreWGSL[vertexShaderStoreKey(NOISE)] = noiseVertexWGSL
     ShaderStore.ShadersStoreWGSL[fragmentShaderStoreKey(NOISE)] = noiseFragmentWGSL
 
+    const permutationBuffer = new StorageBuffer(engine, 4 * 256)
+    permutationBuffer.update(permutation)
+
+    const gradientsBuffer = new StorageBuffer(engine, 4 * 3 * 16)
+    gradientsBuffer.update(gradients)
+
     const noiseMat = new ShaderMaterial(
       'noise',
       scene,
@@ -38,6 +47,9 @@ const PerlinNoise: SceneApplication.SceneApplication = {
         shaderLanguage: ShaderLanguage.WGSL,
       },
     )
+
+    noiseMat.setStorageBuffer('permutation', permutationBuffer)
+    noiseMat.setStorageBuffer('gradients', gradientsBuffer)
 
     const quad = MeshBuilder.CreatePlane('quad', {}, scene)
     quad.material = noiseMat
