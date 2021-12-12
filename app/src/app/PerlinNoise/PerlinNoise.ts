@@ -9,7 +9,7 @@ import {
 
 import SceneApplication from 'Util/SceneApplication'
 
-import { gradient2d } from './res/buffers/gradient'
+import { gradient3d } from './res/buffers/gradient'
 import permutation from './res/buffers/permutation'
 import noiseVertexWGSL from './res/shaders/noise.vertex.wgsl'
 import noiseFragmentWGSL from './res/shaders/noise.fragment.wgsl'
@@ -31,8 +31,8 @@ const PerlinNoise: SceneApplication.SceneApplication = {
     const permutationBuffer = new StorageBuffer(engine, 4 * 256)
     permutationBuffer.update(permutation)
 
-    const gradient2dBuffer = new StorageBuffer(engine, 4 * 2 * 64)
-    gradient2dBuffer.update(gradient2d)
+    const gradient3dBuffer = new StorageBuffer(engine, 4 * 4 * 64)
+    gradient3dBuffer.update(gradient3d)
 
     const noiseMat = new ShaderMaterial(
       'noise',
@@ -49,10 +49,16 @@ const PerlinNoise: SceneApplication.SceneApplication = {
     )
 
     noiseMat.setStorageBuffer('permutation', permutationBuffer)
-    noiseMat.setStorageBuffer('gradient', gradient2dBuffer)
+    noiseMat.setStorageBuffer('gradient', gradient3dBuffer)
 
     const quad = MeshBuilder.CreatePlane('quad', {}, scene)
     quad.material = noiseMat
+
+    let t = 0.0
+    scene.registerBeforeRender(() => {
+      noiseMat.setFloat('time', t)
+      t += 1.0 / 60.0
+    })
 
     return Promise.resolve(scene)
   },
