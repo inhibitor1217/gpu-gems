@@ -9,6 +9,7 @@ import {
 
 import { Empty } from 'Common/base/Empty'
 import EngineProvider from 'Common/provider/EngineProvider'
+import RenderFrameCallbackContextProvider from 'Common/provider/RenderFrameCallbackContextProvider'
 import { ContentRoutes } from 'Routes/content'
 import { HeaderRoutes } from 'Routes/header'
 import { NavigationRoutes } from 'Routes/navigation'
@@ -24,19 +25,21 @@ const App = () => {
     <FoundationProvider foundation={ProviderValues.foundation}>
       <LayoutProvider initialState={ProviderValues.layout}>
         <EngineProvider>
-          <Router>
-            <Navigations>
-              <NavigationRoutes />
-            </Navigations>
+          <RenderFrameCallbackContextProvider>
+            <Router>
+              <Navigations>
+                <NavigationRoutes />
+              </Navigations>
 
-            <Main
-              ContentHeaderComponent={HeaderRoutes}
-              SidePanelComponent={SidePanelRoutes}
-              SideViewComponent={Empty}
-            >
-              <ContentRoutes />
-            </Main>
-          </Router>
+              <Main
+                ContentHeaderComponent={HeaderRoutes}
+                SidePanelComponent={SidePanelRoutes}
+                SideViewComponent={Empty}
+              >
+                <ContentRoutes />
+              </Main>
+            </Router>
+          </RenderFrameCallbackContextProvider>
         </EngineProvider>
       </LayoutProvider>
     </FoundationProvider>
