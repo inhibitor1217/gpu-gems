@@ -3,27 +3,27 @@ struct Vertex {
   [[size(16)]] normal   : vec3<f32>;
 };
 
-[[block]] struct Mesh {
+struct Mesh {
   vertices : [[stride(32)]] array<Vertex>;
 };
 
-[[block]] struct Params {
+struct Params {
   chunkSize : u32;
 };
 
-[[block]] struct EdgeCases {
+struct EdgeCases {
   elements : [[stride(4)]] array<u32, 256>;
 };
 
-[[block]] struct VertexOffsets {
+struct VertexOffsets {
   elements : [[stride(16)]] array<vec3<f32>, 8>;
 };
 
-[[block]] struct EdgeVertexIndices {
+struct EdgeVertexIndices {
   elements : [[stride(8)]] array<vec2<u32>, 12>;
 };
 
-[[block]] struct TriangleCases {
+struct TriangleCases {
   elements: [[stride(4)]] array<u32, 4096>;
 };
 

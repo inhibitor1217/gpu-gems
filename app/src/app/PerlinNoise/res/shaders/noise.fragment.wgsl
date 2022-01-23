@@ -1,8 +1,8 @@
-[[block]] struct PermutationBuffer {
+struct PermutationBuffer {
   items : array<u32, 256>;
 };
 
-[[block]] struct GradientBuffer {
+struct GradientBuffer {
   items : array<vec3<f32>, 64>;
 };
 
