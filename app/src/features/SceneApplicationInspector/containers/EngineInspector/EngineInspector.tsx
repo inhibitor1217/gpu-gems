@@ -2,6 +2,8 @@ import { SectionLabel } from '@channel.io/bezier-react'
 
 import { Card } from 'Common/base/Card'
 
+import EngineFps from '../../components/EngineFps/EngineFps'
+
 function Title() {
   return (
     <SectionLabel
@@ -15,6 +17,7 @@ function EngineInspector() {
   return (
     <Card>
       <Title />
+      <EngineFps />
     </Card>
   )
 }
