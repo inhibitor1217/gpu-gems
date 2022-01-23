@@ -9,7 +9,7 @@ export const container = (
   direction?: 'horizontal' | 'vertical',
   alignment?: {
     main?: 'start' | 'center' | 'end',
-    cross?: 'start' | 'center' | 'end',
+    cross?: 'start' | 'center' | 'end' | 'stretch',
   },
 ) =>
   css`

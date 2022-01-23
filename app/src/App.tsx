@@ -11,6 +11,7 @@ import { Empty } from 'Common/base/Empty'
 import { ContentRoutes } from 'Routes/content'
 import { HeaderRoutes } from 'Routes/header'
 import { NavigationRoutes } from 'Routes/navigation'
+import { SidePanelRoutes } from 'Routes/side-panel'
 
 const ProviderValues = {
   foundation: DarkFoundation,
@@ -28,7 +29,7 @@ const App = () => {
 
           <Main
             ContentHeaderComponent={HeaderRoutes}
-            SidePanelComponent={Empty}
+            SidePanelComponent={SidePanelRoutes}
             SideViewComponent={Empty}
           >
             <ContentRoutes />
