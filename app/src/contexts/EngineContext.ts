@@ -3,10 +3,16 @@ import type { Engine } from '@babylonjs/core'
 
 import { fulfilled } from 'Util/AsyncState'
 import type { Task } from 'Util/AsyncState'
-import { O } from 'Util/Fx'
+import { F, O } from 'Util/Fx'
 
 type EngineContextValue = Task<O.Option<Engine>>
 
-const EngineContext = createContext<EngineContextValue>(fulfilled(O.none()))
+type EngineSubscriberContextValue = EngineContextValue
 
-export default EngineContext
+export const EngineSubscriberContext = (
+  createContext<EngineSubscriberContextValue>(fulfilled(O.none()))
+)
+
+type EnginePublisherContextValue = (engineT: EngineContextValue) => void
+
+export const EnginePublisherContext = createContext<EnginePublisherContextValue>(F.noop)

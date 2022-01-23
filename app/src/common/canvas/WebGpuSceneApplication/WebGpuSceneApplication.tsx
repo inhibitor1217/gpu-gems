@@ -4,13 +4,13 @@ import {
 } from 'react'
 import _ from 'lodash'
 
-import EngineContext from 'Contexts/EngineContext'
+import { EngineSubscriberContext } from 'Contexts/EngineContext'
 import { O } from 'Util/Fx'
 import type SceneApplication from 'Util/SceneApplication'
 
 const WebGpuSceneApplication = (app: SceneApplication.SceneApplication) =>
   function Application() {
-    const engineT = useContext(EngineContext)
+    const engineT = useContext(EngineSubscriberContext)
 
     useEffect(function runApplication() {
       if (!engineT.fulfilled()) { return _.noop }

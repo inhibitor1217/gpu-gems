@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 
@@ -29,14 +30,21 @@ function useAsyncState<S, E>(promise: Promise<S>): Task<S, E> {
   const completed = useCallback(() => phase !== AsyncPhase.Pending, [phase])
   const pending = useCallback(() => phase === AsyncPhase.Pending, [phase])
 
-  return {
+  return useMemo(() => ({
     fulfilled,
     rejected,
     completed,
     pending,
     data,
     error,
-  }
+  }), [
+    fulfilled,
+    rejected,
+    completed,
+    pending,
+    data,
+    error,
+  ])
 }
 
 export default useAsyncState

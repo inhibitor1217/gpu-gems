@@ -1,10 +1,12 @@
 import {
   memo,
+  useContext,
+  useEffect,
   useState,
 } from 'react'
 import type { ReactNode } from 'react'
 
-import EngineContext from 'Contexts/EngineContext'
+import { EnginePublisherContext } from 'Contexts/EngineContext'
 
 import useWebGpuEngine from '../hooks/useWebGpuEngine'
 import * as Styled from './WebGpuCanvasImpl.styled'
@@ -17,14 +19,23 @@ function WebGpuCanvasImpl({
   children,
 }: WebGpuCanvasImplProps) {
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null)
+
+  const publishEngine = useContext(EnginePublisherContext)
   const engineT = useWebGpuEngine(canvas)
 
+  useEffect(() => {
+    publishEngine(engineT)
+  }, [
+    publishEngine,
+    engineT,
+  ])
+
   return (
-    <EngineContext.Provider value={engineT}>
+    <>
       <Styled.Canvas ref={setCanvas} />
 
       { children }
-    </EngineContext.Provider>
+    </>
   )
 }
 

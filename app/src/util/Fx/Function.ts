@@ -30,3 +30,6 @@ export const debug = <A>(a: A) => {
   console.log(a)
   return a
 }
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const noop = (...args: any[]) => {}

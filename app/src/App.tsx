@@ -8,6 +8,7 @@ import {
 } from '@channel.io/bezier-react'
 
 import { Empty } from 'Common/base/Empty'
+import EngineProvider from 'Common/provider/EngineProvider'
 import { ContentRoutes } from 'Routes/content'
 import { HeaderRoutes } from 'Routes/header'
 import { NavigationRoutes } from 'Routes/navigation'
@@ -22,19 +23,21 @@ const App = () => {
   return (
     <FoundationProvider foundation={ProviderValues.foundation}>
       <LayoutProvider initialState={ProviderValues.layout}>
-        <Router>
-          <Navigations>
-            <NavigationRoutes />
-          </Navigations>
+        <EngineProvider>
+          <Router>
+            <Navigations>
+              <NavigationRoutes />
+            </Navigations>
 
-          <Main
-            ContentHeaderComponent={HeaderRoutes}
-            SidePanelComponent={SidePanelRoutes}
-            SideViewComponent={Empty}
-          >
-            <ContentRoutes />
-          </Main>
-        </Router>
+            <Main
+              ContentHeaderComponent={HeaderRoutes}
+              SidePanelComponent={SidePanelRoutes}
+              SideViewComponent={Empty}
+            >
+              <ContentRoutes />
+            </Main>
+          </Router>
+        </EngineProvider>
       </LayoutProvider>
     </FoundationProvider>
   )
