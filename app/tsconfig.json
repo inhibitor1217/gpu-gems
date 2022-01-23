@@ -6,6 +6,7 @@
       "App/*": ["app/*"],
       "Common/*": ["common/*"],
       "Contexts/*": ["contexts/*"],
+      "Features/*": ["features/*"],
       "Routes/*": ["routes/*"],
       "Styles/*": ["styles/*"],
       "Types/*": ["types/*"],

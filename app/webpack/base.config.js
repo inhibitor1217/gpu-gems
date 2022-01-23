@@ -35,6 +35,7 @@ module.exports = {
       'App': path.resolve(__dirname, '..', 'src', 'app'),
       'Common': path.resolve(__dirname, '..', 'src', 'common'),
       'Contexts': path.resolve(__dirname, '..', 'src', 'contexts'),
+      'Features': path.resolve(__dirname, '..', 'src', 'features'),
       'Routes': path.resolve(__dirname, '..', 'src', 'routes'),
       'Styles': path.resolve(__dirname, '..', 'src', 'styles'),
       'Types': path.resolve(__dirname, '..', 'src', 'types'),
