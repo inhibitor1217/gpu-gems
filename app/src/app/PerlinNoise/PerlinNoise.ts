@@ -57,7 +57,7 @@ const PerlinNoise: SceneApplication.SceneApplication = {
     let t = 0.0
     scene.registerBeforeRender(() => {
       noiseMat.setFloat('time', t)
-      t += 1.0 / 60.0
+      t += engine.getDeltaTime() * 1e-3
     })
 
     return Promise.resolve(scene)
