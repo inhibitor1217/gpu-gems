@@ -112,11 +112,29 @@ fn noise3d(p : vec3<f32>) -> f32 {
   );
 }
 
+let octaves : f32 = 6.0;
+let scale : f32 = 0.5;
+let lacunarity : f32 = 2.0;
+let persistence : f32 = 0.5;
+let timeScale : f32 = 0.1;
+
+fn noiseWithOctaves(position : vec2<f32>,
+                    time : f32) -> f32 {
+  var intensity : f32 = 0.0;
+
+  for (var octave : f32 = 0.0; octave < octaves; octave = octave + 1.0) {
+    intensity = intensity + pow(persistence, octave) * noise3d(vec3<f32>(position * scale * pow(lacunarity, octave), time));
+  }
+
+  return intensity;
+}
+
 [[stage(fragment)]]
 fn main(input : FragmentInputs) -> FragmentOutputs {
-  if (length(vPosition.xy) > 16.0) {
-    gl_FragColor = vec4<f32>(0., 0., 0., 0.);
+  var out = noiseWithOctaves(vPosition.xy, timeScale * uniforms.time);
+  if (out > 0.0) {
+    gl_FragColor = vec4<f32>(1., 1., 1., 1.);
   } else {
-    gl_FragColor = vec4<f32>(vec3<f32>(1., 1., 1.) * (noise3d(vec3<f32>(vPosition.xy, uniforms.time)) * 0.5 + 0.5), 1.);
+    gl_FragColor = vec4<f32>(0., 0., 0., 1.);
   }
 }
