@@ -123,7 +123,12 @@ fn noiseWithOctaves(position : vec2<f32>,
   var intensity : f32 = 0.0;
 
   for (var octave : f32 = 0.0; octave < octaves; octave = octave + 1.0) {
-    intensity = intensity + pow(persistence, octave) * noise3d(vec3<f32>(position * scale * pow(lacunarity, octave), time));
+    intensity = intensity
+      + pow(persistence, octave) *
+        noise3d(vec3<f32>(
+          (position + octave * vec2<f32>(1., 1.)) * scale * pow(lacunarity, octave),
+          time,
+        ));
   }
 
   return intensity;
