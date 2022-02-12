@@ -974,17 +974,17 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@5.0.0-beta.4":
-  version "5.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.0.0-beta.4.tgz#794f14f63aa737a85f2b74bece0be7eeab347b36"
-  integrity sha512-to5IVdbJP+9eOwhKTgYCVe3N7I8ofzCILXrfHNqu9G+mZ127+5axtvxmUOYe8NmgtFr4/UpOTCDMIsJwdtlyMA==
+"@babylonjs/core@5.0.0-beta.6":
+  version "5.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.0.0-beta.6.tgz#a9be3a2bde18b837c46060c467d351501a3f1955"
+  integrity sha512-WbKMQo44UdXnYRtYSvylfTy8s+DI0rCujdLu/qnmPwNIy0b6xZkW5YayN97Z3YGoGVAbW/tGBP+jPlDquQR14A==
   dependencies:
     tslib "^2.3.1"
 
-"@channel.io/bezier-react@1.0.0-next-v1.88":
-  version "1.0.0-next-v1.88"
-  resolved "https://registry.yarnpkg.com/@channel.io/bezier-react/-/bezier-react-1.0.0-next-v1.88.tgz#1be4415f015d28e5ddf1e1f9e514bd134805ba91"
-  integrity sha512-+3xz6Gvp+81mU/tbOj4adhX79PdZm3quN/4TpnMwfqadO1sTl93B9z5gMKR5oUcBLb7H2IeS++PMw8543UZJwg==
+"@channel.io/bezier-react@1.0.0-next-v1.92":
+  version "1.0.0-next-v1.92"
+  resolved "https://registry.yarnpkg.com/@channel.io/bezier-react/-/bezier-react-1.0.0-next-v1.92.tgz#11a90ecfe2442864e67f72945d402dd1fb814279"
+  integrity sha512-GG/J+uRtuo3OZwAQCOmzxJhjx6YNUOshT4UydshFVgBWNUUBA6l+to4iqoMqv6/L4/pezXwQt4nkKUiLCyANZQ==
   dependencies:
     "@babel/runtime" "^7.12.13"
     lodash-es "^4.17.15"

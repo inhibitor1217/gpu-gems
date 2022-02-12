@@ -1,6 +1,6 @@
 import { HashRouter as Router } from 'react-router-dom'
 import {
-  FoundationProvider,
+  BezierProvider,
   DarkFoundation,
   Main,
   Navigations,
@@ -22,7 +22,7 @@ const ProviderValues = {
 
 const App = () => {
   return (
-    <FoundationProvider foundation={ProviderValues.foundation}>
+    <BezierProvider foundation={ProviderValues.foundation}>
       <LayoutProvider initialState={ProviderValues.layout}>
         <EngineProvider>
           <RenderFrameCallbackContextProvider>
@@ -42,7 +42,7 @@ const App = () => {
           </RenderFrameCallbackContextProvider>
         </EngineProvider>
       </LayoutProvider>
-    </FoundationProvider>
+    </BezierProvider>
   )
 }
 
