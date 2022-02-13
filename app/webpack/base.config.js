@@ -37,6 +37,7 @@ module.exports = {
       'Contexts': path.resolve(__dirname, '..', 'src', 'contexts'),
       'Features': path.resolve(__dirname, '..', 'src', 'features'),
       'Routes': path.resolve(__dirname, '..', 'src', 'routes'),
+      'Redux': path.resolve(__dirname, '..', 'src', 'redux'),
       'Styles': path.resolve(__dirname, '..', 'src', 'styles'),
       'Types': path.resolve(__dirname, '..', 'src', 'types'),
       'Util': path.resolve(__dirname, '..', 'src', 'util'),
