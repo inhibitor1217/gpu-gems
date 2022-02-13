@@ -134,7 +134,7 @@ fn noiseWithOctaves(position : vec2<f32>,
   return intensity;
 }
 
-[[stage(fragment)]]
+@stage(fragment)
 fn main(input : FragmentInputs) -> FragmentOutputs {
   var out = noiseWithOctaves(vPosition.xy, timeScale * uniforms.time);
   gl_FragColor = vec4<f32>((out * 0.5 + 0.5) * vec3<f32>(1., 1., 1.), 1.);
