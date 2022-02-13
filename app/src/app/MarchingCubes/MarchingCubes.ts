@@ -122,6 +122,7 @@ const MarchingCubes: SceneApplication.SceneApplication = {
 
     return Promise.resolve(scene)
   },
+  defineProperties: () => ({}),
 }
 
 export default MarchingCubes

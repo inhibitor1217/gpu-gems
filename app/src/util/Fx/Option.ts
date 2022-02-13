@@ -11,7 +11,13 @@ export const isNone: <T>(fa: Option<T>) => fa is None = _.isNil
 
 export const isNotNone: <T>(fa: Option<T>) => fa is T = _.flow(isNone, B.not) as any
 
-export const map: <T, R>(f: (a: T) => R, fallback?: R | null) => (fa: Option<T>) => Option<R> = (
+type Map = {
+  <T, R> (f: (a: T) => R): (fa: Option<T>) => Option<R>
+  <T, R> (f: (a: T) => R, fallback: R): (fa: Option<T>) => R
+  <T, R> (f: (a: T) => R, fallback: null): (fa: Option<T>) => Option<R>
+}
+
+export const map: Map = (
   (f, fallback = null) => (fa) => (isNone(fa) ? fallback : f(fa))
 )
 

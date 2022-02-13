@@ -6,7 +6,9 @@ import {
   ShaderStore,
   StorageBuffer,
 } from '@babylonjs/core'
+import _ from 'lodash'
 
+import { F, O } from 'Util/Fx'
 import SceneApplication from 'Util/SceneApplication'
 
 import { gradient3d } from './res/buffers/gradient'
@@ -20,7 +22,21 @@ const fragmentShaderStoreKey = (name: string): string => `${name}FragmentShader`
 
 const NOISE = 'noise'
 
-const PerlinNoise: SceneApplication.SceneApplication = {
+interface PerlinNoiseProperties {
+  'noiseMat.octaves': number
+  'noiseMat.scale': number
+  'noiseMat.lacunarity': number
+  'noiseMat.persistence': number
+}
+
+const updateFloatUniform = (property: string) =>
+  (material: ShaderMaterial) =>
+    (prev: number | null, current: number): void => {
+      if (prev === current) { return }
+      material.setFloat(property, current)
+    }
+
+const PerlinNoise: SceneApplication.SceneApplication<PerlinNoiseProperties> = {
   createScene: (engine) => {
     const scene = new Scene(engine)
     scene.createDefaultCameraOrLight(false, true, false)
@@ -67,6 +83,36 @@ const PerlinNoise: SceneApplication.SceneApplication = {
 
     return Promise.resolve(scene)
   },
+  defineProperties: (engine, scene) => ({
+    'noiseMat.octaves': {
+      init: () => 6.0,
+      update: F.go(
+        scene.getMaterialByName('noise') as O.Option<ShaderMaterial>,
+        O.map(updateFloatUniform('octaves'), _.noop),
+      ),
+    },
+    'noiseMat.scale': {
+      init: () => 0.5,
+      update: F.go(
+        scene.getMaterialByName('noise') as O.Option<ShaderMaterial>,
+        O.map(updateFloatUniform('scale'), _.noop),
+      ),
+    },
+    'noiseMat.lacunarity': {
+      init: () => 2.0,
+      update: F.go(
+        scene.getMaterialByName('noise') as O.Option<ShaderMaterial>,
+        O.map(updateFloatUniform('lacunarity'), _.noop),
+      ),
+    },
+    'noiseMat.persistence': {
+      init: () => 0.5,
+      update: F.go(
+        scene.getMaterialByName('noise') as O.Option<ShaderMaterial>,
+        O.map(updateFloatUniform('persistence'), _.noop),
+      ),
+    },
+  }),
 }
 
 export default PerlinNoise

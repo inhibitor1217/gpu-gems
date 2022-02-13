@@ -29,6 +29,7 @@ const SimpleSceneApplication: SceneApplication.SceneApplication = {
 
     return Promise.resolve(scene)
   },
+  defineProperties: () => ({}),
 }
 
 export default SimpleSceneApplication
