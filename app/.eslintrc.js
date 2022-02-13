@@ -15,6 +15,7 @@ module.exports = _.merge(
       '@typescript-eslint/semi': ['error', 'never'],
       'array-callback-return': 'off',
       'implicit-arrow-linebreak': 'off',
+      'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['draft'] }],
       'react/function-component-definition': 'off',
       "react/jsx-uses-react": 'off',
       "react/react-in-jsx-scope": 'off',
