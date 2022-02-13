@@ -51,6 +51,11 @@ const PerlinNoise: SceneApplication.SceneApplication = {
     noiseMat.setStorageBuffer('permutation', permutationBuffer)
     noiseMat.setStorageBuffer('gradient', gradient3dBuffer)
 
+    noiseMat.setFloat('octaves', 6.0)
+    noiseMat.setFloat('scale', 0.5)
+    noiseMat.setFloat('lacunarity', 2.0)
+    noiseMat.setFloat('persistence', 0.5)
+
     const quad = MeshBuilder.CreatePlane('quad', {}, scene)
     quad.material = noiseMat
 

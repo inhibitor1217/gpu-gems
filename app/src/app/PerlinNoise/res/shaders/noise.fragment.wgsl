@@ -7,6 +7,10 @@ struct GradientBuffer {
 };
 
 uniform time : f32;
+uniform octaves : f32;
+uniform scale : f32;
+uniform lacunarity : f32;
+uniform persistence : f32;
 
 varying vPosition : vec3<f32>;
 
@@ -112,21 +116,15 @@ fn noise3d(p : vec3<f32>) -> f32 {
   );
 }
 
-let octaves : f32 = 6.0;
-let scale : f32 = 0.5;
-let lacunarity : f32 = 2.0;
-let persistence : f32 = 0.5;
-let timeScale : f32 = 1.0;
-
 fn noiseWithOctaves(position : vec2<f32>,
                     time : f32) -> f32 {
   var intensity : f32 = 0.0;
 
-  for (var octave : f32 = 0.0; octave < octaves; octave = octave + 1.0) {
+  for (var octave : f32 = 0.0; octave < uniforms.octaves; octave = octave + 1.0) {
     intensity = intensity
-      + pow(persistence, octave) *
+      + pow(uniforms.persistence, octave) *
         noise3d(vec3<f32>(
-          (position + octave * vec2<f32>(1., 1.)) * scale * pow(lacunarity, octave),
+          (position + octave * vec2<f32>(1., 1.)) * uniforms.scale * pow(uniforms.lacunarity, octave),
           time,
         ));
   }
@@ -136,6 +134,6 @@ fn noiseWithOctaves(position : vec2<f32>,
 
 @stage(fragment)
 fn main(input : FragmentInputs) -> FragmentOutputs {
-  var out = noiseWithOctaves(vPosition.xy, timeScale * uniforms.time);
+  var out = noiseWithOctaves(vPosition.xy, uniforms.time);
   gl_FragColor = vec4<f32>((out * 0.5 + 0.5) * vec3<f32>(1., 1., 1.), 1.);
 }
